@@ -55,6 +55,8 @@ var group;
 var dwarf;
 var timedEvent;
 var timedEventSucesos;
+var contadorNormal = 0;
+var contadorMaximo = 0;
 var maximoNormal = 10;
 var maximoFuerte = 10;
 var recursos = 100;
@@ -93,6 +95,17 @@ function create(){
 
   dwarf = this.add.group();
   dwarf = this.physics.add.group();
+
+  // Eventos secuenciales
+  //Evento que va contando los recursos
+  timedEvent = this.time.addEvent({
+    delay: delay,
+    callback: actualizarRecursos,
+    callbackScope: this,
+    loop: true
+  });
+
+
 
   //Eventos de botones
   $(".normal").click({ game: this, tipo: "normal" }, createDwarf);
