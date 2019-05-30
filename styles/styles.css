@@ -1,0 +1,15 @@
+#game{
+    width:50%;
+    float:left;
+}
+
+.stats{
+    width:50%;
+    float:left;
+}
+
+.stats td{
+	border: 1px solid black;
+	text-align: center;
+	font-size: 12px !important;
+}
