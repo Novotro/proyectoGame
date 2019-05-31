@@ -105,10 +105,14 @@ function create(){
     loop: true
   });
 
-
-
   //Eventos de botones
   $(".normal").click({ game: this, tipo: "normal" }, createDwarf);
+
+  $(".mejorar").click(function(e) {
+    e.preventDefault();
+
+    mejoraRecursos(timedEvent);
+  });
 }
 
 function update(){
@@ -133,6 +137,19 @@ function actualizarRecursos() {
   recursos = recursos + contadorNormal + contadorMaximo;
   $(".recursos").html(recursos);
   $(".recursosSegundo").html((contadorNormal + contadorMaximo * 2) * mejoras);
+}
+
+
+function mejoraRecursos(timedEvent) {
+  if (recursos > costesMejora && mejoras < 10 && contadorNormal > 0) {
+    mejoras++;
+    recursos = recursos - costesMejora;
+    costesMejora = Math.trunc(costesMejora * 1.5);
+    $(".nivelMejora").html(mejoras);
+    $(".recursos").html(recursos);
+    $(".proximaMejora").html(costesMejora);
+    timedEvent.delay = timedEvent.delay - timedEvent.delay * 0.25;
+  }
 }
 
 
