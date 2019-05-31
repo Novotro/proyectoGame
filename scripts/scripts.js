@@ -74,7 +74,7 @@ function preload(){
 
 function create(){
   // Background del juego
-  background = this.add.image(0, 0, "background").setOrigin(0, 0).setScale(1.5);
+  background = this.add.image(0, 0, "background").setOrigin(0, 0).setScale(2);
   // Limites del mapa
   this.physics.world.setBounds(0, 0, 660, 340);
 
