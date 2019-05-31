@@ -116,11 +116,15 @@ function update(){
 
 // Funciones para el juego
 function createDwarf(event){
-  if (recursos - 50 >= 0 && contadorNormal < maximoNormal) {
-    dwarf[contadorNormal] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
-    recursos = recursos - 50;
-    actualizarRecursos();
-    contadorNormal++;
+  switch (event.data.tipo) {
+    case "normal":
+        if (recursos - 50 >= 0 && contadorNormal < maximoNormal) {
+            dwarf[contadorNormal] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+            recursos = recursos - 50;
+            actualizarRecursos();
+            contadorNormal++;
+        }
+    break;
   }
 }
 
