@@ -65,6 +65,8 @@ var sucesos = 10000;
 var mejoras = 1;
 var costesMejora = 50;
 var temporizador = 0;
+var costeDwarf = 50;
+var total= 0;
 
 function preload(){
   //Fondo del juego
@@ -122,11 +124,14 @@ function update(){
 function createDwarf(event){
   switch (event.data.tipo) {
     case "normal":
-        if (recursos - 50 >= 0 && contadorNormal < maximoNormal) {
+        if (recursos - costeDwarf >= 0 && contadorNormal < maximoNormal) {
             dwarf[contadorNormal] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
-            recursos = recursos - 50;
+            recursos = recursos - costeDwarf;
             actualizarRecursos();
             contadorNormal++;
+            costeDwarf =  Math.trunc(costeDwarf *1.7);
+            $(".total").html(contadorNormal);
+            $(".costeEnanos").html(costeDwarf);
         }
     break;
   }
@@ -145,9 +150,18 @@ function mejoraRecursos(timedEvent) {
     mejoras++;
     recursos = recursos - costesMejora;
     costesMejora = Math.trunc(costesMejora * 1.5);
-    $(".nivelMejora").html(mejoras);
-    $(".recursos").html(recursos);
-    $(".proximaMejora").html(costesMejora);
+    costeDwarf = costeDwarf * 1.25;
+    if(mejoras >= 10){
+     $(".nivelMejora").html("MAX");
+     $(".recursos").html("MAX");
+     $(".proximaMejora").html("MAX");
+     $(".costeEnanos").html("MAX");
+    }else{
+     $(".nivelMejora").html(mejoras);
+     $(".recursos").html(recursos);
+     $(".proximaMejora").html(costesMejora);
+    }
+
     timedEvent.delay = timedEvent.delay - timedEvent.delay * 0.25;
   }
 }
