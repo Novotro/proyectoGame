@@ -53,12 +53,14 @@ function resize() {
 
 var group;
 var dwarf;
+var dwarfStrong;
 var timedEvent;
 var timedEventSucesos;
 var contadorNormal = 0;
+var contadorStrong = 0;
 var contadorMaximo = 0;
 var maximoNormal = 10;
-var maximoFuerte = 10;
+var maximoStrong = 10;
 var recursos = 100;
 var delay = 1000;
 var sucesos = 10000;
@@ -66,6 +68,7 @@ var mejoras = 1;
 var costesMejora = 50;
 var temporizador = 0;
 var costeDwarf = 50;
+var costeDwarfStrong = 100;
 var total= 0;
 
 function preload(){
@@ -109,6 +112,8 @@ function create(){
 
   //Eventos de botones
   $(".normal").click({ game: this, tipo: "normal" }, createDwarf);
+  $(".fuerte").click({ game: this, tipo: "fuerte" }, createDwarf);
+
 
   $(".mejorar").click(function(e) {
     e.preventDefault();
@@ -127,14 +132,33 @@ function createDwarf(event){
         if (recursos - costeDwarf >= 0 && contadorNormal < maximoNormal) {
             dwarf[contadorNormal] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
             recursos = recursos - costeDwarf;
-            actualizarRecursos();
             contadorNormal++;
             costeDwarf =  Math.trunc(costeDwarf *1.7);
             $(".total").html(contadorNormal);
             $(".costeEnanos").html(costeDwarf);
+            actualizarRecursos();
         }
+     case "fuerte":
+        if (recursos - costeDwarfStrong >= 0 && contadorStrong < maximoStrong) {
+            dwarfStrong[contadorStrong] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+            recursos = recursos - costeDwarfStrong;
+            contadorStrong++;
+            costeDwarfStrong =  Math.trunc(costeDwarfStrong *1.7);
+            $(".totalFuerte").html(contadorFuerte);
+            $(".costeEnanosFuerte").html(costeDwarfStrong);
+            actualizarRecursos();
+       }
     break;
   }
+}
+
+
+
+
+
+//Funcion para la IA de los Enanos
+function iaDwarf(){
+
 }
 
 // Funcion que va actualizando los recursos
