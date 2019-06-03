@@ -1,16 +1,14 @@
 #game{
-    width:50%;
-    float:left;
-    height: 100%;
+    width:100%;
+    height: 200px;
 }
 
-.stats{
-    width:50%;
-    float:left;
-     height: 100%;
+.tableStats{
+    width:100%;
+    height: 200px;
 }
 
-.stats td{
+.tableStats td{
 	border: 1px solid black;
 	text-align: center;
 	font-size: 12px !important;
