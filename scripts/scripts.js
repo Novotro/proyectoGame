@@ -144,7 +144,7 @@ function createDwarf(event){
             recursos = recursos - costeDwarfStrong;
             contadorStrong++;
             costeDwarfStrong =  Math.trunc(costeDwarfStrong *1.7);
-            $(".totalFuerte").html(contadorFuerte);
+            $(".totalFuerte").html(contadorStrong);
             $(".costeEnanosFuerte").html(costeDwarfStrong);
             actualizarRecursos();
        }
@@ -163,11 +163,10 @@ function iaDwarf(){
 
 // Funcion que va actualizando los recursos
 function actualizarRecursos() {
-  recursos = recursos + contadorNormal + contadorMaximo;
+  recursos = recursos + contadorNormal + contadorMaximo + contadorStrong;
   $(".recursos").html(recursos);
   $(".recursosSegundo").html((contadorNormal + contadorMaximo * 2) * mejoras);
 }
-
 
 function mejoraRecursos(timedEvent) {
   if (recursos > costesMejora && mejoras < 10 && contadorNormal > 0) {
