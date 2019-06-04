@@ -101,6 +101,9 @@ function create(){
   dwarf = this.add.group();
   dwarf = this.physics.add.group();
 
+  dwarfStrong = this.add.group();
+  dwarfStrong = this.physics.add.group();
+
   // Eventos secuenciales
   //Evento que va contando los recursos
   timedEvent = this.time.addEvent({
@@ -138,6 +141,7 @@ function createDwarf(event){
             $(".costeEnanos").html(costeDwarf);
             actualizarRecursos();
         }
+    break;
      case "fuerte":
         if (recursos - costeDwarfStrong >= 0 && contadorStrong < maximoStrong) {
             dwarfStrong[contadorStrong] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
@@ -163,9 +167,9 @@ function iaDwarf(){
 
 // Funcion que va actualizando los recursos
 function actualizarRecursos() {
-  recursos = recursos + contadorNormal + contadorMaximo + contadorStrong;
+  recursos = recursos + (contadorNormal * 2) + (contadorStrong * 4);
   $(".recursos").html(recursos);
-  $(".recursosSegundo").html((contadorNormal + contadorMaximo * 2) * mejoras);
+  $(".recursosSegundo").html(((contadorNormal * 2) + (contadorStrong * 4))*2);
 }
 
 function mejoraRecursos(timedEvent) {
