@@ -70,6 +70,7 @@ var temporizador = 0;
 var costeDwarf = 50;
 var costeDwarfStrong = 100;
 var total= 0;
+var recursosSegundo;
 
 function preload(){
   //Fondo del juego
@@ -168,8 +169,9 @@ function iaDwarf(){
 // Funcion que va actualizando los recursos
 function actualizarRecursos() {
   recursos = recursos + (contadorNormal * 2) + (contadorStrong * 4);
+  recursosSegundo = Math.trunc(((contadorNormal * 2) + (contadorStrong * 4)) / (delay/1000) *2);
   $(".recursos").html(recursos);
-  $(".recursosSegundo").html(((contadorNormal * 2) + (contadorStrong * 4))*2);
+  $(".recursosSegundo").html(recursosSegundo);
 }
 
 function mejoraRecursos(timedEvent) {
@@ -188,8 +190,9 @@ function mejoraRecursos(timedEvent) {
      $(".recursos").html(recursos);
      $(".proximaMejora").html(costesMejora);
     }
-
     timedEvent.delay = timedEvent.delay - timedEvent.delay * 0.25;
+
+    delay= timedEvent.delay;
   }
 }
 
