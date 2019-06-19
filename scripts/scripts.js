@@ -178,11 +178,7 @@ function createCat(event){
   }
 }
 
-
-
-
-
-//Funcion para la IA de los Enanos
+//Funcion para la IA de los cat
 
 function iacat(){
 
