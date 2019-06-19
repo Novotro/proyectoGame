@@ -191,6 +191,24 @@ function createCat(event){
 
 function iaCat(tipo){
 
+    switch (tipo) {
+    case "normal":
+        if (tipo.job != "unemployed") {
+
+        }
+    break;
+    case "fuerte":
+        if (tipo.job != "unemployed") {
+
+        }
+    break;
+    case "rapido":
+        if (tipo.job != "unemployed") {
+
+        }
+    break;
+  }
+
 
 }
 
