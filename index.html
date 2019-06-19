@@ -26,45 +26,90 @@
 <body>
 <div class="container-fluid">
 
-  <div id="game">
+  <div class="header">
   </div>
 
-  <div class="table tableStats table-striped table-dark" >
-      <table>
-          <tr>
-            <td>
-              Enanos
-            </td>
-            <td class="totalNormal">
-              0
-            </td>
-            <td class="costeEnanos">
-              50
-            </td>
-            <td class="nivelMejora">
-              1
-            </td>
-            <td class="proximaMejora">
-              50
-            </td>
-          </tr>
-          <tr>
-             <td colspan="3">
-              Recursos: <span class="recursos">100</span>
-            </td>
-            <td colspan="2">
-             Recursos por segundo: <span class="recursosSegundo">0 </span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="5">
-                <button type="button" class="btn btn-primary normal">Normal</button>
-                <button type="button" class="btn btn-primary fuerte">Fuerte</button>
-                <button type="button" class="btn btn-primary mejorar">Mejorar</button>
-                <!-- <button type="button" class="btn btn-primary cargar">Cargar</button>   -->
-            </td>
-          </tr>
-      </table>
+  <div class="contenido">
+
+    <div id="game">
+    </div>
+
+    <div class="table tableStats table-striped table-dark" >
+        <table>
+            <tr>
+                <td class="titulos">
+                    &nbsp;
+                </td>
+                <td class="titulos">
+                    Total
+                </td>
+                <td class="titulos">
+                    Coste unidad
+                </td>
+                <td class="titulos">
+                    Nivel de mejora
+                </td>
+                <td class="titulos">
+                    Coste de mejora
+                </td>
+            </tr>
+            <tr>
+                <td>
+                 Enanos
+                </td>
+                <td class="total">
+                 0
+                </td>
+                <td class="costeEnanos">
+                 50
+                </td>
+                <td class="nivelMejora">
+                 1
+                </td>
+                <td class="proximaMejora">
+                 50
+                </td>
+            </tr>
+             <tr>
+                <td>
+                 Enanos Fuertes
+                </td>
+                <td class="totalFuerte">
+                 0
+                </td>
+                <td class="costeEnanosFuerte">
+                 100
+                </td>
+                <td class="nivelMejoraFuerte">
+                 1
+                </td>
+                <td class="proximaMejoraFuerte">
+                 50
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                  Recursos: <span class="recursos">100</span>
+                </td>
+                <td colspan="2">
+                  Recursos por segundo: <span class="recursosSegundo">0 </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <button type="button" class="btn btn-primary normal">Normal</button>
+                    <button type="button" class="btn btn-primary fuerte">Fuerte</button>
+                    <button type="button" class="btn btn-primary mejorar">Mejorar</button>
+                    <!-- <button type="button" class="btn btn-primary cargar">Cargar</button>   -->
+                </td>
+            </tr>
+        </table>
+    </div>
+  </div>
+
+  <div class="footer">
+
   </div>
 
 </div>
