@@ -50,9 +50,6 @@ function resize() {
   canvas.style.height = windowHeight + "px";
  }
 }
-
-
-
 //Enanos
 var cat;
 var catStrong;
@@ -115,6 +112,9 @@ function create(){
   catStrong = this.add.group();
   catStrong = this.physics.add.group();
 
+  catStrong = this.add.group();
+  catStrong = this.physics.add.group();
+
   // Eventos secuenciales
   //Evento que va contando los recursos
   timedEvent = this.time.addEvent({
@@ -125,10 +125,9 @@ function create(){
   });
 
   //Eventos de botones
-  $(".normal").click({ game: this, tipo: "normal" }, createcat);
-  $(".fuerte").click({ game: this, tipo: "fuerte" }, createcat);
 
-
+  $(".normal").click({ game: this, tipo: "normal" }, createCat);
+  $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
   $(".mejorar").click(function(e) {
     e.preventDefault();
 
@@ -140,7 +139,7 @@ function update(){
 }
 
 // Funciones para el juego
-function createcat(event){
+function createCat(event){
   switch (event.data.tipo) {
     case "normal":
         if (recursos - costeCat >= 0 && contadorNormal < maximoNormal) {
@@ -150,29 +149,29 @@ function createcat(event){
             costeCat =  Math.trunc(costeCat *1.7);
             $(".total").html(contadorNormal);
             $(".costeEnanos").html(costeCat);
+
             actualizarRecursos();
         }
     break;
-     case "fuerte":
+    case "fuerte":
         if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
             catStrong[contadorStrong] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
             recursos = recursos - costeCatStrong;
             contadorStrong++;
             costeCatStrong =  Math.trunc(costeCatStrong *1.7);
             $(".totalFuerte").html(contadorStrong);
-            $(".costeEnanosFuerte").html(costeCatStrong);
+            $(".costeCatStrong").html(costeCatStrong);
             actualizarRecursos();
        }
     break;
     case "rapido":
-            // En construccion
-       if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
-            catStrong[contadorStrong] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
+        if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
+            catStrong[contadorStrong] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
             recursos = recursos - costeCatStrong;
             contadorStrong++;
             costeCatStrong =  Math.trunc(costeCatStrong *1.7);
             $(".totalFuerte").html(contadorStrong);
-            $(".costeEnanosFuerte").html(costeCatStrong);
+            $(".costeCatStrong").html(costeCatStrong);
             actualizarRecursos();
        }
     break;
@@ -184,6 +183,7 @@ function createcat(event){
 
 
 //Funcion para la IA de los Enanos
+
 function iacat(){
 
 }
@@ -202,6 +202,7 @@ function mejoraRecursos(timedEvent) {
     recursos = recursos - costesMejora;
     costesMejora = Math.trunc(costesMejora * 1.5);
     costeCat = costeCat * 1.25;
+
     if(mejoras >= 10){
      $(".nivelMejora").html("MAX");
      $(".recursos").html("MAX");
@@ -213,7 +214,6 @@ function mejoraRecursos(timedEvent) {
      $(".proximaMejora").html(costesMejora);
     }
     timedEvent.delay = timedEvent.delay - timedEvent.delay * 0.25;
-
     delay = timedEvent.delay;
   }
 }

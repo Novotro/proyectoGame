@@ -1,15 +1,36 @@
 #game{
-    width:50%;
-    float:left;
+    width:100%;
+    height: 200px;
 }
 
-.stats{
-    width:50%;
-    float:left;
+.tableStats{
+    width:100%;
+    height: 300px;
 }
 
-.stats td{
+.tableStats td{
 	border: 1px solid black;
 	text-align: center;
 	font-size: 12px !important;
+}
+
+.header{
+    width: 100%;
+    height: 10%;
+    background-color: black;
+}
+
+.contenido{
+    width: 100%;
+    height: 80%;
+}
+
+.footer{
+    width: 100%;
+    height: 10%;
+    background-color: black;
+}
+
+.titulos{
+    font-size: 10px;
 }
