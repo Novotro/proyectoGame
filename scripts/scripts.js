@@ -50,19 +50,24 @@ function resize() {
   canvas.style.height = windowHeight + "px";
  }
 }
+
+
 //Enanos
 var cat;
 var catStrong;
+var catFast;
 //Eventos
 var timedEvent;
 var timedEventSucesos;
 //Contadores
 var contadorNormal = 0;
 var contadorStrong = 0;
+var contadorFast = 0;
 var contadorMaximo = 0;
 //Limitadores
 var maximoNormal = 10;
 var maximoStrong = 10;
+var maximoFast = 10;
 //Variables para recursos
 var recursos = 100;
 var delay = 1000;
@@ -75,6 +80,7 @@ var recursosSegundo;
 var costesMejora = 50;
 var costeCat = 50;
 var costeCatStrong = 100;
+var costeCatFast = 75;
 // Otros
 var group;
 
@@ -112,8 +118,8 @@ function create(){
   catStrong = this.add.group();
   catStrong = this.physics.add.group();
 
-  catStrong = this.add.group();
-  catStrong = this.physics.add.group();
+  catFast = this.add.group();
+  catFast = this.physics.add.group();
 
   // Eventos secuenciales
   //Evento que va contando los recursos
@@ -144,6 +150,7 @@ function createCat(event){
     case "normal":
         if (recursos - costeCat >= 0 && contadorNormal < maximoNormal) {
             cat[contadorNormal] = group.create(100, 100, 'cat').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+            cat[contadorNormal].job = "unemployed";
             recursos = recursos - costeCat;
             contadorNormal++;
             costeCat =  Math.trunc(costeCat *1.7);
@@ -156,6 +163,7 @@ function createCat(event){
     case "fuerte":
         if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
             catStrong[contadorStrong] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
+            catStrong[contadorStrong].job = "unemployed";
             recursos = recursos - costeCatStrong;
             contadorStrong++;
             costeCatStrong =  Math.trunc(costeCatStrong *1.7);
@@ -165,13 +173,14 @@ function createCat(event){
        }
     break;
     case "rapido":
-        if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
-            catStrong[contadorStrong] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
-            recursos = recursos - costeCatStrong;
-            contadorStrong++;
-            costeCatStrong =  Math.trunc(costeCatStrong *1.7);
-            $(".totalFuerte").html(contadorStrong);
-            $(".costeCatStrong").html(costeCatStrong);
+        if (recursos - costeCatFast >= 0 && contadorFast < maximoFast) {
+            catFast[contadorFast] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+            catFast[contadorFast].job = "unemployed";
+            recursos = recursos - costeCatFast;
+            contadorFast++;
+            costeCatFast =  Math.trunc(costeCatFast *1.7);
+            $(".totalFuerte").html(contadorFast);
+            $(".costeCatFast").html(costeCatFast);
             actualizarRecursos();
        }
     break;
@@ -180,7 +189,8 @@ function createCat(event){
 
 //Funcion para la IA de los cat
 
-function iacat(){
+function iaCat(tipo){
+
 
 }
 
