@@ -6,7 +6,6 @@ $(document).ready(function() {
 	var widthGame = window.screen.width;
 	var game;
 
-
 	var config = {
 	type: Phaser.CANVAS,
 	width: widthGame,
@@ -51,19 +50,18 @@ function resize() {
  }
 }
 
-
 //Enanos
 var cat;
 var catStrong;
 var catFast;
 //Eventos
 var timedEvent;
-var timedEventSucesos;
+// var timedEventSucesos;
 //Contadores
 var contadorNormal = 0;
 var contadorStrong = 0;
 var contadorFast = 0;
-var contadorMaximo = 0;
+// var contadorMaximo = 0;
 //Limitadores
 var maximoNormal = 10;
 var maximoStrong = 10;
@@ -71,10 +69,10 @@ var maximoFast = 10;
 //Variables para recursos
 var recursos = 100;
 var delay = 1000;
-var sucesos = 10000;
+// var sucesos = 10000;
 var mejoras = 1;
-var temporizador = 0;
-var total= 0;
+// var temporizador = 0;
+// var total= 0;
 var recursosSegundo;
 // Costes
 var costesMejora = 50;
@@ -83,7 +81,6 @@ var costeCatStrong = 100;
 var costeCatFast = 75;
 // Otros
 var group;
-
 
 function preload(){
   //Fondo del juego
@@ -134,9 +131,10 @@ function create(){
 
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
   $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
+  $(".circulo").click("normal", jobsCat);
+
   $(".mejorar").click(function(e) {
     e.preventDefault();
-
     mejoraRecursos(timedEvent);
   });
 }
@@ -156,7 +154,6 @@ function createCat(event){
             costeCat =  Math.trunc(costeCat *1.7);
             $(".total").html(contadorNormal);
             $(".costeEnanos").html(costeCat);
-
             actualizarRecursos();
         }
     break;
@@ -189,13 +186,16 @@ function createCat(event){
 
 //Funcion para la IA de los cat
 
-function iaCat(tipo){
+function jobsCat(tipo){
 
     switch (tipo) {
     case "normal":
-        if (tipo.job != "unemployed") {
-
-        }
+      for(var i =  0; i < contadorNormal; i++){
+          if (cat[i].job != "unemployed") {
+                cat[i].job = "changed";
+          }
+          console.log(cat[i].job + "funciona");
+      }
     break;
     case "fuerte":
         if (tipo.job != "unemployed") {
@@ -208,7 +208,7 @@ function iaCat(tipo){
         }
     break;
   }
-
+    console.log("jobs");
 
 }
 
