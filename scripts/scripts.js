@@ -127,6 +127,14 @@ function create(){
     loop: true
   });
 
+ //Evento que va contando los recursos
+  timedEvent = this.time.addEvent({
+    delay: 10000,
+    callback: tareasCat,
+    callbackScope: this,
+    loop: true
+  });
+
   //Eventos de botones
 
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
@@ -240,5 +248,17 @@ function mejoraRecursos(timedEvent) {
   }
 }
 
+//Funcion que se encarga de darles tareas a los cat segun su oficio
+function tareasCat(){
+    if(recursos < 100){
+        for(i = 0 ; i < contadorNormal ; i++ ){
+            if(cat[i].job = "normal"){
+                cat[i].setVelocityX(500);
+            }
+        }
+    }
+
+
+}
 
 });
