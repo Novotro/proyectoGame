@@ -131,7 +131,7 @@ function create(){
 
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
   $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
-  $(".circulo").click("normal", jobsCat);
+  $(".circulo").click({ game: this, tipo: "normal" }, jobsCat);
 
   $(".mejorar").click(function(e) {
     e.preventDefault();
@@ -186,12 +186,12 @@ function createCat(event){
 
 //Funcion para la IA de los cat
 
-function jobsCat(tipo){
+function jobsCat(event){
 
-    switch (tipo) {
+    switch (event.data.tipo) {
     case "normal":
       for(var i =  0; i < contadorNormal; i++){
-          if (cat[i].job != "unemployed") {
+          if (cat[i].job == "unemployed") {
                 cat[i].job = "changed";
           }
           console.log(cat[i].job + "funciona");
@@ -208,8 +208,6 @@ function jobsCat(tipo){
         }
     break;
   }
-    console.log("jobs");
-
 }
 
 // Funcion que va actualizando los recursos
