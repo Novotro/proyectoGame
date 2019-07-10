@@ -129,7 +129,7 @@ function create(){
 
  //Evento que va contando los recursos
   timedEvent = this.time.addEvent({
-    delay: 10000,
+    delay: 3000,
     callback: tareasCat,
     callbackScope: this,
     loop: true
@@ -138,8 +138,8 @@ function create(){
   //Eventos de botones
 
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
-  $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
-  $(".circulo").click({ game: this, tipo: "normal" }, jobsCat);
+  $(".fuerte").click({ game: this, tipo: "strong" }, createCat);
+  $(".rapido").click({ game: this, tipo: "fast" }, jobsCat);
 
   $(".mejorar").click(function(e) {
     e.preventDefault();
@@ -158,11 +158,14 @@ function createCat(event){
             cat[contadorNormal] = group.create(100, 100, 'cat').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
             cat[contadorNormal].job = "unemployed";
             recursos = recursos - costeCat;
+            console.log(cat[contadorNormal]);
             contadorNormal++;
             costeCat =  Math.trunc(costeCat *1.7);
             $(".total").html(contadorNormal);
             $(".costeEnanos").html(costeCat);
             actualizarRecursos();
+
+
         }
     break;
     case "fuerte":
@@ -205,12 +208,12 @@ function jobsCat(event){
           console.log(cat[i].job + "funciona");
       }
     break;
-    case "fuerte":
+    case "strong":
         if (tipo.job != "unemployed") {
 
         }
     break;
-    case "rapido":
+    case "fast":
         if (tipo.job != "unemployed") {
 
         }
@@ -251,9 +254,31 @@ function mejoraRecursos(timedEvent) {
 //Funcion que se encarga de darles tareas a los cat segun su oficio
 function tareasCat(){
     if(recursos < 100){
+
         for(i = 0 ; i < contadorNormal ; i++ ){
             if(cat[i].job = "normal"){
-                cat[i].setVelocityX(500);
+                console.log(cat[i].body.velocity.x);
+                if(cat[i].body.velocity.x > -200){
+                    cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+                }else{
+                     if(cat[i].body.velocity.x < 200){
+                         cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+                     }
+                }
+
+            }
+
+             if(cat[i].job == "fast"){
+                cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+                cat[i].setVelocityY(cat[i].body.velocity.y* 2);
+            }
+        }
+
+
+    }else{
+         for(i = 0 ; i < contadorNormal ; i++ ){
+            if(cat[i].job = "normal"){
+                cat[i].setVelocityX(50);
             }
         }
     }
