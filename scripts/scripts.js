@@ -138,8 +138,8 @@ function create(){
   //Eventos de botones
 
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
-  $(".fuerte").click({ game: this, tipo: "strong" }, createCat);
-  $(".rapido").click({ game: this, tipo: "fast" }, jobsCat);
+  $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
+  $(".rapido").click({ game: this, tipo: "rapido" }, jobsCat);
 
   $(".mejorar").click(function(e) {
     e.preventDefault();
@@ -155,26 +155,15 @@ function createCat(event){
   switch (event.data.tipo) {
     case "normal":
         if (recursos - costeCat >= 0 && contadorNormal < maximoNormal) {
-            cat[contadorNormal] = group.create(100, 100, 'cat').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
-            cat[contadorNormal].job = "unemployed";
-            recursos = recursos - costeCat;
-            console.log(cat[contadorNormal]);
-            contadorNormal++;
-            costeCat =  Math.trunc(costeCat *1.7);
+            creador("normal",contadorNormal);
             $(".total").html(contadorNormal);
             $(".costeEnanos").html(costeCat);
             actualizarRecursos();
-
-
         }
     break;
     case "fuerte":
         if (recursos - costeCatStrong >= 0 && contadorStrong < maximoStrong) {
-            catStrong[contadorStrong] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
-            catStrong[contadorStrong].job = "unemployed";
-            recursos = recursos - costeCatStrong;
-            contadorStrong++;
-            costeCatStrong =  Math.trunc(costeCatStrong *1.7);
+            creador("fuerte",contadorStrong);
             $(".totalFuerte").html(contadorStrong);
             $(".costeCatStrong").html(costeCatStrong);
             actualizarRecursos();
@@ -182,17 +171,39 @@ function createCat(event){
     break;
     case "rapido":
         if (recursos - costeCatFast >= 0 && contadorFast < maximoFast) {
-            catFast[contadorFast] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
-            catFast[contadorFast].job = "unemployed";
-            recursos = recursos - costeCatFast;
-            contadorFast++;
-            costeCatFast =  Math.trunc(costeCatFast *1.7);
+            creador("rapido",contadorFast);
             $(".totalFuerte").html(contadorFast);
             $(".costeCatFast").html(costeCatFast);
             actualizarRecursos();
        }
     break;
   }
+}
+
+function creador(tipo,contador){
+    switch (tipo) {
+      case "normal":
+        cat[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+        cat[contador].job = "unemployed";
+        contadorNormal++;
+        recursos = recursos - costeCat;
+        costeCat =  Math.trunc(costeCat *1.7);
+      break;
+      case "fuerte":
+        catStrong[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
+        catStrong[contador].job = "unemployed";
+        contadorStrong++;
+        recursos = recursos - costeCatStrong;
+        costeCatStrong =  Math.trunc(costeCatStrong *1.7);
+      break;
+      case "rapido":
+        catFast[contador] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+        catFast[contador].job = "unemployed";
+        contadorFast++;
+        recursos = recursos - costeCatFast;
+        costeCatFast =  Math.trunc(costeCatFast *1.7);
+      break;
+    }
 }
 
 //Funcion para la IA de los cat
@@ -254,7 +265,6 @@ function mejoraRecursos(timedEvent) {
 //Funcion que se encarga de darles tareas a los cat segun su oficio
 function tareasCat(){
     if(recursos < 100){
-
         for(i = 0 ; i < contadorNormal ; i++ ){
             if(cat[i].job = "normal"){
                 console.log(cat[i].body.velocity.x);
@@ -267,7 +277,6 @@ function tareasCat(){
                 }
 
             }
-
              if(cat[i].job == "fast"){
                 cat[i].setVelocityX(cat[i].body.velocity.x * 2);
                 cat[i].setVelocityY(cat[i].body.velocity.y* 2);
@@ -277,9 +286,13 @@ function tareasCat(){
 
     }else{
          for(i = 0 ; i < contadorNormal ; i++ ){
-            if(cat[i].job = "normal"){
-                cat[i].setVelocityX(50);
-            }
+            if(cat[i].body.velocity.x > -200){
+                    cat[i].setVelocityX(-50);
+                }else{
+                     if(cat[i].body.velocity.x < 200){
+                         cat[i].setVelocityX(50);
+                     }
+                }
         }
     }
 
