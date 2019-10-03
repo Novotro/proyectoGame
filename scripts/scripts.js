@@ -81,6 +81,16 @@ var costeCatStrong = 100;
 var costeCatFast = 75;
 // Otros
 var group;
+var acciones= ["encontro","robó","extrajo"];
+var cantidadEvento= [100,50,20];
+
+// funciones anonimas
+var maximizar= function(){
+     $(".nivelMejora").html("MAX");
+     $(".recursos").html("MAX");
+     $(".proximaMejora").html("MAX");
+     $(".costeEnanos").html("MAX");
+};
 
 function preload(){
   //Fondo del juego
@@ -127,7 +137,7 @@ function create(){
     loop: true
   });
 
- //Evento que va contando los recursos
+ //Evento que va asignando tareas
   timedEvent = this.time.addEvent({
     delay: 3000,
     callback: tareasCat,
@@ -136,7 +146,6 @@ function create(){
   });
 
   //Eventos de botones
-
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
   $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
   $(".rapido").click({ game: this, tipo: "rapido" }, jobsCat);
@@ -236,6 +245,10 @@ function jobsCat(event){
 function actualizarRecursos() {
   recursos = Math.trunc(recursos + (contadorNormal * 2) + (contadorStrong * 4));
   recursosSegundo = Math.trunc(((contadorNormal * 2) + (contadorStrong * 4)) / (delay/1000) *2);
+  actualizarHtmlRecursos();
+}
+
+function actualizarHtmlRecursos(){
   $(".recursos").html(recursos);
   $(".recursosSegundo").html(recursosSegundo);
 }
@@ -248,10 +261,7 @@ function mejoraRecursos(timedEvent) {
     costeCat = costeCat * 1.25;
 
     if(mejoras >= 10){
-     $(".nivelMejora").html("MAX");
-     $(".recursos").html("MAX");
-     $(".proximaMejora").html("MAX");
-     $(".costeEnanos").html("MAX");
+        maximizar();
     }else{
      $(".nivelMejora").html(mejoras);
      $(".recursos").html(recursos);
@@ -270,6 +280,7 @@ function tareasCat(){
                 console.log(cat[i].body.velocity.x);
                 if(cat[i].body.velocity.x > -200){
                     cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+                    eventos("normal","mejora");
                 }else{
                      if(cat[i].body.velocity.x < 200){
                          cat[i].setVelocityX(cat[i].body.velocity.x * 2);
@@ -282,8 +293,6 @@ function tareasCat(){
                 cat[i].setVelocityY(cat[i].body.velocity.y* 2);
             }
         }
-
-
     }else{
          for(i = 0 ; i < contadorNormal ; i++ ){
             if(cat[i].body.velocity.x > -200){
@@ -295,8 +304,25 @@ function tareasCat(){
                 }
         }
     }
+}
 
+function eventos(tipoGato, tipoEvento){
 
+    switch(tipoEvento){
+        case "recurso":
+            var recursosEvento= cantidadEvento[Math.floor((Math.random()*cantidadEvento.length))];
+            console.log("Un gato "+ tipoGato+ " "+acciones[Math.floor((Math.random()*acciones.length))]+" "+ recursosEvento + " recursos.");
+            recursos = recursos + recursosEvento;
+            actualizarHtmlRecursos();
+        break;
+
+        case "mejora":
+             console.log("Un gato "+ tipoGato+ "encontró un libro de entrenamiento! Ha subido un nivel de mejora!");
+             mejoras++;
+             $(".nivelMejora").html(mejoras);
+             actualizarHtmlRecursos();
+        break;
+    }
 }
 
 });
