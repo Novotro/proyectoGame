@@ -306,18 +306,18 @@ function tareasCat(){
     }
 }
 
-function eventos(tipoGato, tipoEvento){
+function eventos(typeCat, typeEvent){
 
-    switch(tipoEvento){
+    switch(typeEvent){
         case "recurso":
-            var recursosEvento= cantidadEvento[Math.floor((Math.random()*cantidadEvento.length))];
-            console.log("Un gato "+ tipoGato+ " "+acciones[Math.floor((Math.random()*acciones.length))]+" "+ recursosEvento + " recursos.");
-            recursos = recursos + recursosEvento;
+            var resourceEvent= cantidadEvento[Math.floor((Math.random()*cantidadEvento.length))];
+            console.log("Un gato "+ typeCat+ " "+acciones[Math.floor((Math.random()*acciones.length))]+" "+ resourceEvent + " recursos.");
+            recursos = recursos + resourceEvent;
             actualizarHtmlRecursos();
         break;
 
         case "mejora":
-             console.log("Un gato "+ tipoGato+ "encontró un libro de entrenamiento! Ha subido un nivel de mejora!");
+             console.log("Un gato "+ typeCat+ "encontró un libro de entrenamiento! Ha subido un nivel de mejora!");
              mejoras++;
              $(".nivelMejora").html(mejoras);
              actualizarHtmlRecursos();
