@@ -104,14 +104,6 @@ function create(){
   // Limites del mapa
   this.physics.world.setBounds(0, 0, 660, 340);
 
-  //Evento que va contando los recursos
-  timedEvent = this.time.addEvent({
-    delay: delay,
-    callback: actualizarRecursos,
-    callbackScope: this,
-    loop: true
-  });
-
   //Objetos
   group = this.physics.add.group({
     bounceX: 1,
@@ -130,7 +122,7 @@ function create(){
 
   // Eventos secuenciales
   //Evento que va contando los recursos
-  timedEvent = this.time.addEvent({
+  timedEventResources = this.time.addEvent({
     delay: delay,
     callback: actualizarRecursos,
     callbackScope: this,
@@ -138,7 +130,7 @@ function create(){
   });
 
  //Evento que va asignando tareas
-  timedEvent = this.time.addEvent({
+  timedEventJob = this.time.addEvent({
     delay: 3000,
     callback: tareasCat,
     callbackScope: this,
@@ -148,11 +140,16 @@ function create(){
   //Eventos de botones
   $(".normal").click({ game: this, tipo: "normal" }, createCat);
   $(".fuerte").click({ game: this, tipo: "fuerte" }, createCat);
-  $(".rapido").click({ game: this, tipo: "rapido" }, jobsCat);
+  $(".rapido").click({ game: this, tipo: "rapido" }, createCat);
 
   $(".mejorar").click(function(e) {
     e.preventDefault();
     mejoraRecursos(timedEvent);
+  });
+
+  $(".jobs").click(function(e) {
+    e.preventDefault();
+    jobsCat("normal");
   });
 }
 
@@ -217,9 +214,10 @@ function creador(tipo,contador){
 
 //Funcion para la IA de los cat
 
-function jobsCat(event){
+function jobsCat(tipo){
+    //switch (event.data.tipo) {
 
-    switch (event.data.tipo) {
+   switch (tipo) {
     case "normal":
       for(var i =  0; i < contadorNormal; i++){
           if (cat[i].job == "unemployed") {
@@ -243,6 +241,9 @@ function jobsCat(event){
 
 // Funcion que va actualizando los recursos
 function actualizarRecursos() {
+  //Cambio velocidad del evento
+    //timedEventResources.delay= 100;
+
   recursos = Math.trunc(recursos + (contadorNormal * 2) + (contadorStrong * 4));
   recursosSegundo = Math.trunc(((contadorNormal * 2) + (contadorStrong * 4)) / (delay/1000) *2);
   actualizarHtmlRecursos();
@@ -274,36 +275,50 @@ function mejoraRecursos(timedEvent) {
 
 //Funcion que se encarga de darles tareas a los cat segun su oficio
 function tareasCat(){
-    if(recursos < 100){
-        for(i = 0 ; i < contadorNormal ; i++ ){
-            if(cat[i].job = "normal"){
-                console.log(cat[i].body.velocity.x);
-                if(cat[i].body.velocity.x > -200){
-                    cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-                    eventos("normal","mejora");
-                }else{
-                     if(cat[i].body.velocity.x < 200){
-                         cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-                     }
-                }
+    var typeJobEvent = Math.floor(Math.random()*3);
+    // switch(typeJobEvent){
+    //     case 0:
 
-            }
-             if(cat[i].job == "fast"){
-                cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-                cat[i].setVelocityY(cat[i].body.velocity.y* 2);
-            }
-        }
-    }else{
-         for(i = 0 ; i < contadorNormal ; i++ ){
-            if(cat[i].body.velocity.x > -200){
-                    cat[i].setVelocityX(-50);
-                }else{
-                     if(cat[i].body.velocity.x < 200){
-                         cat[i].setVelocityX(50);
-                     }
-                }
-        }
-    }
+    //     break;
+
+    //     case 1:
+
+    //     break;
+
+    //     case 2:
+
+    //     break;
+    // }
+    // if(recursos < 100){
+    //     for(i = 0 ; i < contadorNormal ; i++ ){
+    //         if(cat[i].job = "normal"){
+    //             console.log(cat[i].body.velocity.x);
+    //             if(cat[i].body.velocity.x > -200){
+    //                 cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+    //                 eventos("normal","mejora");
+    //             }else{
+    //                  if(cat[i].body.velocity.x < 200){
+    //                      cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+    //                  }
+    //             }
+    //         }
+
+    //         if(cat[i].job == "fast"){
+    //             cat[i].setVelocityX(cat[i].body.velocity.x * 2);
+    //             cat[i].setVelocityY(cat[i].body.velocity.y* 2);
+    //         }
+    //     }
+    // }else{
+    //      for(i = 0 ; i < contadorNormal ; i++ ){
+    //         if(cat[i].body.velocity.x > -200){
+    //                 cat[i].setVelocityX(-50);
+    //             }else{
+    //                  if(cat[i].body.velocity.x < 200){
+    //                      cat[i].setVelocityX(50);
+    //                  }
+    //             }
+    //     }
+    // }
 }
 
 function eventos(typeCat, typeEvent){
