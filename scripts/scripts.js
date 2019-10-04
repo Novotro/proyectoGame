@@ -131,7 +131,7 @@ function create(){
 
  //Evento que va asignando tareas
   timedEventJob = this.time.addEvent({
-    delay: 3000,
+    delay: 20000,
     callback: tareasCat,
     callbackScope: this,
     loop: true
@@ -194,6 +194,8 @@ function creador(tipo,contador){
         contadorNormal++;
         recursos = recursos - costeCat;
         costeCat =  Math.trunc(costeCat *1.7);
+        //Los eventos aparecen mas frecuentemente segun la cantidad de gatos.
+        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorNormal*0.1));
       break;
       case "fuerte":
         catStrong[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
@@ -201,6 +203,8 @@ function creador(tipo,contador){
         contadorStrong++;
         recursos = recursos - costeCatStrong;
         costeCatStrong =  Math.trunc(costeCatStrong *1.7);
+        //Los eventos aparecen mas frecuentemente segun la cantidad de gatos.
+        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorStrong*0.1));
       break;
       case "rapido":
         catFast[contador] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
@@ -268,27 +272,39 @@ function mejoraRecursos(timedEvent) {
      $(".recursos").html(recursos);
      $(".proximaMejora").html(costesMejora);
     }
-    timedEvent.delay = timedEvent.delay - timedEvent.delay * 0.25;
-    delay = timedEvent.delay;
+    timedEventResources.delay = timedEventResources.delay - timedEventResources.delay * 0.25;
   }
 }
 
 //Funcion que se encarga de darles tareas a los cat segun su oficio
 function tareasCat(){
+    console.log("delay de tareas:"+ timedEventJob.delay);
     var typeJobEvent = Math.floor(Math.random()*3);
-    // switch(typeJobEvent){
-    //     case 0:
+    var typeProbability = Math.floor(Math.random()*4);
+    switch(typeJobEvent){
+        //Buscar
+        case 0:
+            if(typeProbability<2){
+                eventos("normal", "recurso");
+            }else{
+               console.log("Un gato encontro una caja pero estaba vacia.");
+            }
+        break;
 
-    //     break;
+        //Pelea
+        case 1:
+            console.log("Pelea");
+        break;
 
-    //     case 1:
-
-    //     break;
-
-    //     case 2:
-
-    //     break;
-    // }
+        //Mejora
+        case 2:
+            if(typeProbability==3){
+                eventos("normal", "mejora");
+            }else{
+                console.log("Un gato estudio para mejorar pero no ha sido suficiente.");
+            }
+        break;
+    }
     // if(recursos < 100){
     //     for(i = 0 ; i < contadorNormal ; i++ ){
     //         if(cat[i].job = "normal"){
