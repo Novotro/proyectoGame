@@ -195,7 +195,7 @@ function creador(tipo,contador){
         recursos = recursos - costeCat;
         costeCat =  Math.trunc(costeCat *1.7);
         //Los eventos aparecen mas frecuentemente segun la cantidad de gatos.
-        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorNormal*0.1));
+        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorNormal*0.01));
       break;
       case "fuerte":
         catStrong[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
@@ -204,7 +204,7 @@ function creador(tipo,contador){
         recursos = recursos - costeCatStrong;
         costeCatStrong =  Math.trunc(costeCatStrong *1.7);
         //Los eventos aparecen mas frecuentemente segun la cantidad de gatos.
-        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorStrong*0.1));
+        timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorStrong*0.01));
       break;
       case "rapido":
         catFast[contador] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
