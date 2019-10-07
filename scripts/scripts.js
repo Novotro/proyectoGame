@@ -81,6 +81,7 @@ var costeCatStrong = 100;
 var costeCatFast = 75;
 // Otros
 var group;
+var enemies= ["Dio","una Arpia","un Dragon"];
 var acciones= ["encontro","robó","extrajo"];
 var cantidadEvento= [100,50,20];
 
@@ -131,7 +132,7 @@ function create(){
 
  //Evento que va asignando tareas
   timedEventJob = this.time.addEvent({
-    delay: 20000,
+    delay: 1000,
     callback: tareasCat,
     callbackScope: this,
     loop: true
@@ -149,7 +150,7 @@ function create(){
 
   $(".jobs").click(function(e) {
     e.preventDefault();
-    jobsCat("normal");
+    deleteCat("normal");
   });
 }
 
@@ -245,9 +246,6 @@ function jobsCat(tipo){
 
 // Funcion que va actualizando los recursos
 function actualizarRecursos() {
-  //Cambio velocidad del evento
-    //timedEventResources.delay= 100;
-
   recursos = Math.trunc(recursos + (contadorNormal * 2) + (contadorStrong * 4));
   recursosSegundo = Math.trunc(((contadorNormal * 2) + (contadorStrong * 4)) / (delay/1000) *2);
   actualizarHtmlRecursos();
@@ -280,31 +278,36 @@ function mejoraRecursos(timedEvent) {
 function tareasCat(){
     console.log("delay de tareas:"+ timedEventJob.delay);
     var typeJobEvent = Math.floor(Math.random()*3);
-    var typeProbability = Math.floor(Math.random()*4);
-    switch(typeJobEvent){
-        //Buscar
-        case 0:
-            if(typeProbability<2){
-                eventos("normal", "recurso");
-            }else{
-               console.log("Un gato encontro una caja pero estaba vacia.");
-            }
-        break;
+    //Un tercio de probabilidad de que ocurra un evento.
+    var probabilityEvent=Math.floor(Math.random()*3);
+    var typeProbability  = Math.floor(Math.random()*4);
+    if(probabilityEvent == 2){
+        switch(typeJobEvent){
+            //Buscar
+            case 0:
+                if(typeProbability<2){
+                    eventos("normal", "recurso");
+                }else{
+                console.log("Un gato encontro una caja pero estaba vacia.");
+                }
+            break;
 
-        //Pelea
-        case 1:
-            console.log("Pelea");
-        break;
+            //Pelea
+            case 1:
+                eventos("normal", "pelea");
+            break;
 
-        //Mejora
-        case 2:
-            if(typeProbability==3){
-                eventos("normal", "mejora");
-            }else{
-                console.log("Un gato estudio para mejorar pero no ha sido suficiente.");
-            }
-        break;
+            //Mejora
+            case 2:
+                if(typeProbability ==3){
+                    eventos("normal", "mejora");
+                }else{
+                    console.log("Un gato estudio para mejorar pero no ha sido suficiente.");
+                }
+            break;
+        }
     }
+
     // if(recursos < 100){
     //     for(i = 0 ; i < contadorNormal ; i++ ){
     //         if(cat[i].job = "normal"){
@@ -337,6 +340,9 @@ function tareasCat(){
     // }
 }
 
+
+
+// Eventos del juego
 function eventos(typeCat, typeEvent){
 
     switch(typeEvent){
@@ -353,7 +359,35 @@ function eventos(typeCat, typeEvent){
              $(".nivelMejora").html(mejoras);
              actualizarHtmlRecursos();
         break;
+
+        case "pelea":
+         var resultado = Math.floor(Math.random()*3);
+            if(resultado == 1){
+                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha ganado!");
+                addResources(250);
+            }else if (resultado == 2){
+                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha empatado!");
+            }else{
+                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha perdido!");
+            }
+        break;
     }
+}
+
+// Funcion para añadir recursos
+function addResources(cantidad){
+    recursos = recursos + cantidad;
+    actualizarRecursos();
+}
+
+// Funcion para borrar tipos
+function deleteCat(tipo){
+    switch(tipo){
+        case "normal":
+            group.remove(cat.children[0],true);
+        break;
+    }
+
 }
 
 });
