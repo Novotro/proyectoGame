@@ -384,7 +384,8 @@ function addResources(cantidad){
 function deleteCat(tipo){
     switch(tipo){
         case "normal":
-            group.remove(cat.children[0],true);
+        //sin acabar
+            cat.remove(cat.children[0],true);
         break;
     }
 
