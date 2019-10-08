@@ -96,7 +96,9 @@ var maximizar= function(){
 function preload(){
   //Fondo del juego
   this.load.image("background", "./assets/graphics/background.jpg");
-  this.load.image("cat", "./assets/graphics/cat.png");
+  this.load.image("catNormal", "./assets/graphics/catNormal.png");
+  this.load.image("catStrong", "./assets/graphics/catStrong.png");
+  this.load.image("catFast", "./assets/graphics/catFast.png");
 }
 
 function create(){
@@ -190,7 +192,7 @@ function createCat(event){
 function creador(tipo,contador){
     switch (tipo) {
       case "normal":
-        cat[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+        cat[contador] = group.create(100, 100, 'catNormal').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
         cat[contador].job = "unemployed";
         contadorNormal++;
         recursos = recursos - costeCat;
@@ -199,7 +201,7 @@ function creador(tipo,contador){
         timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorNormal*0.01));
       break;
       case "fuerte":
-        catStrong[contador] = group.create(100, 100, 'cat').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
+        catStrong[contador] = group.create(100, 100, 'catStrong').setVelocity(Math.random() * 25 - 50, Math.random() * 25 - 50).setScale(0.32);
         catStrong[contador].job = "unemployed";
         contadorStrong++;
         recursos = recursos - costeCatStrong;
@@ -208,7 +210,7 @@ function creador(tipo,contador){
         timedEventJob.delay = timedEventJob.delay - (timedEventJob.delay * (contadorStrong*0.01));
       break;
       case "rapido":
-        catFast[contador] = group.create(100, 100, 'dwarf').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
+        catFast[contador] = group.create(100, 100, 'catFast').setVelocity(Math.random() * 100 - 100, Math.random() * 100 - 100).setScale(0.32);
         catFast[contador].job = "unemployed";
         contadorFast++;
         recursos = recursos - costeCatFast;
