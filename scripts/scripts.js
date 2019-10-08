@@ -152,12 +152,15 @@ function create(){
 
   $(".jobs").click(function(e) {
     e.preventDefault();
-    deleteCat("normal");
+    //deleteCat("normal");
+    searchJob("normal");
+    console.log(cat);
   });
 }
 
 function update(){
 }
+
 
 // Funciones para el juego
 function createCat(event){
@@ -166,7 +169,7 @@ function createCat(event){
         if (recursos - costeCat >= 0 && contadorNormal < maximoNormal) {
             creador("normal",contadorNormal);
             $(".total").html(contadorNormal);
-            $(".costeEnanos").html(costeCat);
+            $(".costeCatNormal").html(costeCat);
             actualizarRecursos();
         }
     break;
@@ -220,10 +223,8 @@ function creador(tipo,contador){
 }
 
 //Funcion para la IA de los cat
-
 function jobsCat(tipo){
-    //switch (event.data.tipo) {
-
+    //switch (event.data.tipo)
    switch (tipo) {
     case "normal":
       for(var i =  0; i < contadorNormal; i++){
@@ -233,17 +234,23 @@ function jobsCat(tipo){
           console.log(cat[i].job + "funciona");
       }
     break;
-    case "strong":
-        if (tipo.job != "unemployed") {
-
-        }
-    break;
-    case "fast":
-        if (tipo.job != "unemployed") {
-
-        }
-    break;
   }
+}
+
+//Funcion que busca los empleos que se solicitan
+function searchJob(tipo){
+    switch(tipo){
+        case "normal":
+            for(var i =  0; i < contadorNormal; i++){
+                if (cat[i].job == "unemployed") {
+                    cat[i].job = "changed";
+                    cat[i].body.velocity.x = 500;
+                    console.log("Un gato normal ha cambiado de tarea");
+                    break;
+                }
+            }
+        break;
+    }
 }
 
 // Funcion que va actualizando los recursos
