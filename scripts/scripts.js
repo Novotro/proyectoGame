@@ -93,13 +93,21 @@ var maximizar= function(){
      $(".costeEnanos").html("MAX");
 };
 
+//Prueba de path
+var follower;
+var path;
+
+
+/*******************************************************************/
 function preload(){
   //Fondo del juego
   this.load.image("background", "./assets/graphics/background.jpg");
+  //Graficos de los Cat
   this.load.image("catNormal", "./assets/graphics/catNormal.png");
   this.load.image("catStrong", "./assets/graphics/catStrong.png");
   this.load.image("catFast", "./assets/graphics/catFast.png");
 }
+//Fin Preload
 
 function create(){
   // Background del juego
@@ -156,10 +164,31 @@ function create(){
     searchJob("normal");
     console.log(cat);
   });
+
+  // Prueba de paths
+    follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+    path = new Phaser.Curves.Path();
+
+    path.add(new Phaser.Curves.Ellipse(400, 300, 100));
+
+    this.tweens.add({
+        targets: follower,
+        t: 1,
+        ease: 'Sine.easeInOut',
+        duration: 4000,
+        yoyo: true,
+        repeat: -1
+    });
 }
+//Fin Create
+
+
 
 function update(){
 }
+
+//Fin update
 
 
 // Funciones para el juego
@@ -357,27 +386,27 @@ function eventos(typeCat, typeEvent){
     switch(typeEvent){
         case "recurso":
             var resourceEvent= cantidadEvento[Math.floor((Math.random()*cantidadEvento.length))];
-            console.log("Un gato "+ typeCat+ " "+acciones[Math.floor((Math.random()*acciones.length))]+" "+ resourceEvent + " recursos.");
+            $(".textEventos").val($(".textEventos").val()+ "\n Un gato "+ typeCat+ " "+acciones[Math.floor((Math.random()*acciones.length))]+" "+ resourceEvent + " recursos.");
             recursos = recursos + resourceEvent;
             actualizarHtmlRecursos();
         break;
 
         case "mejora":
-             console.log("Un gato "+ typeCat+ "encontró un libro de entrenamiento! Ha subido un nivel de mejora!");
-             mejoras++;
-             $(".nivelMejora").html(mejoras);
-             actualizarHtmlRecursos();
+            $(".textEventos").val($(".textEventos").val()+ "\n Un gato "+ typeCat+ " encontró un libro de entrenamiento! Ha subido un nivel de mejora!");
+            mejoras++;
+            $(".nivelMejora").html(mejoras);
+            actualizarHtmlRecursos();
         break;
 
         case "pelea":
          var resultado = Math.floor(Math.random()*3);
             if(resultado == 1){
-                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha ganado!");
+                $(".textEventos").val($(".textEventos").val()+ "\n Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha ganado!");
                 addResources(250);
             }else if (resultado == 2){
-                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha empatado!");
+                $(".textEventos").val($(".textEventos").val()+ "\n Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha empatado!");
             }else{
-                console.log("Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha perdido!");
+                $(".textEventos").val($(".textEventos").val()+ "\n Un gato "+typeCat+ " ha peleado contra "+ enemies[Math.floor(Math.random()*3)]+ " ha perdido!");
             }
         break;
     }
