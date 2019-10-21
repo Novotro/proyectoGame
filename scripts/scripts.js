@@ -166,20 +166,14 @@ function create(){
   });
 
   // Prueba de paths
-    follower = { t: 0, vec: new Phaser.Math.Vector2() };
+    var points = [ 50, 400, 200, 200, 350, 300, 500, 500, 700, 400 ];
 
-    path = new Phaser.Curves.Path();
+    var curve = new Phaser.Curves.Spline(points);
 
-    path.add(new Phaser.Curves.Ellipse(400, 300, 100));
 
-    this.tweens.add({
-        targets: follower,
-        t: 1,
-        ease: 'Sine.easeInOut',
-        duration: 4000,
-        yoyo: true,
-        repeat: -1
-    });
+
+
+
 }
 //Fin Create
 
@@ -274,7 +268,10 @@ function searchJob(tipo){
                 if (cat[i].job == "unemployed") {
                     cat[i].job = "changed";
                     cat[i].body.velocity.x = 500;
+                    console.log(cat[i].job);
+                    cat[i].add.follower(curve, 50, 350, 'catNormal');
                     console.log("Un gato normal ha cambiado de tarea");
+                    cat[i].startFollow(4000);
                     break;
                 }
             }
@@ -345,37 +342,6 @@ function tareasCat(){
             break;
         }
     }
-
-    // if(recursos < 100){
-    //     for(i = 0 ; i < contadorNormal ; i++ ){
-    //         if(cat[i].job = "normal"){
-    //             console.log(cat[i].body.velocity.x);
-    //             if(cat[i].body.velocity.x > -200){
-    //                 cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-    //                 eventos("normal","mejora");
-    //             }else{
-    //                  if(cat[i].body.velocity.x < 200){
-    //                      cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-    //                  }
-    //             }
-    //         }
-
-    //         if(cat[i].job == "fast"){
-    //             cat[i].setVelocityX(cat[i].body.velocity.x * 2);
-    //             cat[i].setVelocityY(cat[i].body.velocity.y* 2);
-    //         }
-    //     }
-    // }else{
-    //      for(i = 0 ; i < contadorNormal ; i++ ){
-    //         if(cat[i].body.velocity.x > -200){
-    //                 cat[i].setVelocityX(-50);
-    //             }else{
-    //                  if(cat[i].body.velocity.x < 200){
-    //                      cat[i].setVelocityX(50);
-    //                  }
-    //             }
-    //     }
-    // }
 }
 
 
